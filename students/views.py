@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
+from students.models import Student
 
 # Create your views here.
 
@@ -10,3 +11,13 @@ def welcome(request):
     print(request.path)
 
     return render(request, 'index.html', context)
+
+
+def list_students(request):
+    # 'SELECT * FROM STUDENTS'
+    students = Student.objects.all()
+    return render(request, 'students/list_students.html', {"students": students})
+
+
+def home(request):
+    return redirect("/students")

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
+              {% for s in students %}
+        <div class="card" style="min-width: 250px; margin: .5rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Name: {{s.name}}</h5>
+              <p class="card-text">Age: {{s.age}} Years Old</p>
+              <p class="card-text">Heigth: {{s.height}}cm</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}
