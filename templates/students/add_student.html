@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content%}
-
+<div>
+    <h2 style="text-align: center;">Add Student</h2>
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Name</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" name="name" >
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Age</label>
+        <input type="number" class="form-control" id="exampleFormControlInput1" name="age" >
+      </div>
+      <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Height</label>
+          <input type="number" class="form-control" id="exampleFormControlInput1" name="height">
+      </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Course</label>
+        <select name="course" id="" class="form-control">
+            <option value="001">Python</option>
+            <option value="002">Javascript</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Address</label>
+        <textarea name="address" id="" cols="30" rows="10" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <input type="submit" value="Add Student" class="btn btn-primary">
+    </div>
+</form>
+</div>
 {% endblock content%}
