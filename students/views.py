@@ -41,5 +41,30 @@ def add_student(request):
         return redirect("/")
 
 
+# Update
+def update_student(request, id):
+    student = Student.objects.get(id=id)
+
+    if request.method == 'GET':
+        print(student.height)
+        return render(request, 'students/update_student.html', {"student": student})
+    else:
+        name = request.POST.get("name")
+        age = request.POST.get("age")
+        height = request.POST.get("height")
+        course = request.POST.get("course")
+        address = request.POST.get("address")
+
+        student.name = name
+        student.age = age
+        student.height = height
+        student.course = course
+        student.address = address
+
+        student.save()
+
+        return redirect(f"/students/update/{id}")
+
+
 def home(request):
     return redirect("/students")

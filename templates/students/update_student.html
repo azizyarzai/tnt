@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<div>
+    <h2 style="text-align: center;">Update Student</h2>
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Name</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" name="name" value="{{student.name}}">
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Age</label>
+        <input type="number" class="form-control" id="exampleFormControlInput1" name="age" value="{{student.age}}" >
+      </div>
+      <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Height</label>
+          <input type="number" class="form-control" id="exampleFormControlInput1" name="height" value="{{student.height}}">
+      </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Course</label>
+        <select name="course" id="" class="form-control">
+            <option value="001" {% if student.course == '001' %} selected {% endif %}>Python</option>
+            <option value="002" {% if student.course == '002' %} selected {% endif %}>Javascript</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Address</label>
+        <textarea name="address" id="" cols="30" rows="10" class="form-control">{{student.address}}</textarea>
+    </div>
+    <div class="mb-3">
+        <input type="submit" value="Update Student" class="btn btn-primary">
+    </div>
+</form>
+</div>
+{% endblock content%}
