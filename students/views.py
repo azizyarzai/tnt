@@ -1,5 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from students.models import Student
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -16,14 +18,20 @@ def welcome(request):
 # CRUD (Create, Read, Update, Delete)
 # Read
 # List View
+@login_required
 def list_students(request):
     # 'SELECT * FROM STUDENTS'
-    students = Student.objects.all()
+    # if request.user.is_authenticated:
+    # students = Student.objects.all()
+    students = Student.objects.filter(name__icontains="karim")
     return render(request, 'students/list_students.html', {"students": students})
+    # else:
+    # return redirect("/admin/login/")
 
 # Create View
 
 
+@login_required
 def add_student(request):
     print(dir(request))
     if request.method == 'GET':
@@ -63,8 +71,23 @@ def update_student(request, id):
 
         student.save()
 
-        return redirect(f"/students/update/{id}")
+        return redirect(reverse_lazy("students:update", kwargs={"id": id}))
+
+# Delete
+
+
+def delete_student(request, id):
+    student = Student.objects.get(id=id)
+    student.delete()
+    return redirect(reverse_lazy("students:list"))
+
+# Retrive
+
+
+def detail_student(request, id):
+    student = Student.objects.get(id=id)
+    return render(request, 'students/detail_student.html', {"student": student})
 
 
 def home(request):
-    return redirect("/students")
+    return redirect(reverse_lazy("students:list"))

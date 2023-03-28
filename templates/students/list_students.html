@@ -9,9 +9,14 @@
               <h5 class="card-title">Name: {{s.name}}</h5>
               <p class="card-text">Age: {{s.age}} Years Old</p>
               <p class="card-text">Heigth: {{s.height}}cm</p>
-              <a href="/students/update/{{s.id}}" class="btn btn-primary">Update</a>
+              <a href="{% url 'students:update' s.id %}" class="btn btn-primary">Update</a>
+              <a href="{% url 'students:delete' s.id %}" class="btn btn-danger">Delete</a>
+              <a href="{% url 'students:detail' s.id %}" class="btn btn-info">View More ...
+              </a>
             </div>
         </div>
+        {% empty %}
+        <h3>No students available.</h3>
         {% endfor %}
     </div>
 {% endblock content %}
