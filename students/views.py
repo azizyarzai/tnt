@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from students.models import Student
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # Create your views here.
 
@@ -22,8 +23,11 @@ def welcome(request):
 def list_students(request):
     # 'SELECT * FROM STUDENTS'
     # if request.user.is_authenticated:
-    # students = Student.objects.all()
-    students = Student.objects.filter(name__icontains="karim")
+    students = Student.objects.all()
+    # students = Student.objects.filter(name__icontains="karim")
+    # students = Student.objects.filter(
+    #     Q(age__gte=12) | Q(course="001"), height__gt=100)
+    print(students.query)
     return render(request, 'students/list_students.html', {"students": students})
     # else:
     # return redirect("/admin/login/")
@@ -86,6 +90,7 @@ def delete_student(request, id):
 
 def detail_student(request, id):
     student = Student.objects.get(id=id)
+    print(student.age)
     return render(request, 'students/detail_student.html', {"student": student})
 
 
