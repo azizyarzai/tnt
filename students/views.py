@@ -3,8 +3,14 @@ from students.models import Student
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from students.forms import TestForm
 
 # Create your views here.
+
+
+def about(request):
+    form = TestForm()
+    return render(request, 'about.html', {"form": form})
 
 
 def welcome(request):
@@ -23,7 +29,7 @@ def welcome(request):
 def list_students(request):
     # 'SELECT * FROM STUDENTS'
     # if request.user.is_authenticated:
-    students = Student.objects.all()
+    students = Student.objects.get_javascript_students()
     # students = Student.objects.filter(name__icontains="karim")
     # students = Student.objects.filter(
     #     Q(age__gte=12) | Q(course="001"), height__gt=100)

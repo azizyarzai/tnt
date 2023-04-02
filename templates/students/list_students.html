@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
           <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
               {% for s in students %}
         <div class="card" style="min-width: 250px; margin: .5rem;">
-            <img src="..." class="card-img-top" alt="...">
+            {% if s.image %}
+            <img src="{{s.image.url}}" class="card-img-top" alt="..." height="150">
+            {% else %}
+            <img src="{% static 'img/profile.png' %}" class="card-img-top" alt="..." height="150">
+            {% endif %}
             <div class="card-body">
               <h5 class="card-title">Name: {{s.name}}</h5>
               <p class="card-text">Age: {{s.age}} Years Old</p>

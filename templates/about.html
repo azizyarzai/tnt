@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 style="text-align: center;">About</h1>
+
+<form action="">
+    {% for field in form %}
+    <div>
+        <span class="test">{{field.label}}</span>
+        {{field}}
+    </div>
+    {% endfor %}
+</form>
+{% endblock content %}
