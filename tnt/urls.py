@@ -16,17 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import HttpResponse
-from students.views import welcome, home, about
+from students.views.func_based import welcome, home, about
+from students.views.class_based import AddStudent
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path("", home),
     path('admin/', admin.site.urls),
     path("welcome/", welcome),
     path("students/", include("students.urls")),
-    path("about/", about),
+    path("about/", AddStudent.as_view()),
+    path("teams/", TemplateView.as_view(template_name='teams.html',
+         extra_context={'title': 'TEAMS'})),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

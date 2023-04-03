@@ -3,14 +3,25 @@ from students.models import Student
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from students.forms import TestForm
+from students.forms import TestForm, StudentModalForm
 
 # Create your views here.
 
 
 def about(request):
-    form = TestForm()
-    return render(request, 'about.html', {"form": form})
+    if request.method == "GET":
+        form = StudentModalForm(initial={"name": "Ahmad", 'course': '001'})
+        return render(request, 'about.html', {"form": form})
+    else:
+        form = StudentModalForm(request.POST or None, request.FILES)
+        if form.is_valid():
+            print(form.cleaned_data)
+            # Student.objects.create(name=form.cleaned_data['name'])
+            form.save()
+            return render(request, 'about.html', {"form": form})
+        else:
+            print(form.errors)
+            return render(request, 'about.html', {"form": form})
 
 
 def welcome(request):
@@ -25,11 +36,11 @@ def welcome(request):
 # CRUD (Create, Read, Update, Delete)
 # Read
 # List View
-@login_required
+@ login_required
 def list_students(request):
     # 'SELECT * FROM STUDENTS'
     # if request.user.is_authenticated:
-    students = Student.objects.get_javascript_students()
+    students = Student.objects.all()
     # students = Student.objects.filter(name__icontains="karim")
     # students = Student.objects.filter(
     #     Q(age__gte=12) | Q(course="001"), height__gt=100)
@@ -41,7 +52,7 @@ def list_students(request):
 # Create View
 
 
-@login_required
+@ login_required
 def add_student(request):
     print(dir(request))
     if request.method == 'GET':
@@ -52,6 +63,8 @@ def add_student(request):
         height = request.POST.get("height")
         course = request.POST.get("course")
         address = request.POST.get("address")
+
+        # image = request.FILES.get("image")
 
         Student.objects.create(
             name=name, age=age, height=height, course=course, address=address)

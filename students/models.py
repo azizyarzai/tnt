@@ -4,6 +4,8 @@ from django.db.models.signals import pre_save, post_save
 import datetime
 import datetime
 
+from django.urls import reverse_lazy
+
 datetime.datetime.today()
 
 # Create your models here.
@@ -58,6 +60,9 @@ class Student(models.Model):
         # print("save called")
         # self.age = self.age + self.age * 0.1
         return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse_lazy('students:detail', args=[self.id])
 
 
 # def student_post_save_handler(sender, instance, created, *args, **kwargs):

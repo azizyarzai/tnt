@@ -3,12 +3,15 @@
 {% block content %}
 <h1 style="text-align: center;">About</h1>
 
-<form action="">
-    {% for field in form %}
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <!-- {% for field in form %}
     <div>
         <span class="test">{{field.label}}</span>
         {{field}}
     </div>
-    {% endfor %}
+    {% endfor %} -->
+    <input type="submit" value="Submit">
 </form>
 {% endblock content %}
