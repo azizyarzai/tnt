@@ -1,6 +1,8 @@
 from django.views.generic.base import View
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 from students.models import Student
 
@@ -13,6 +15,23 @@ class ListStudent(View):
 
     # def post(self, request):
     #     pass
+
+
+class StudentList(ListView):
+    model = Student
+    template_name = 'students/list_students.html'
+    context_object_name = 'students'
+
+
+class AddStudent(CreateView):
+    model = Student
+    template_name = 'about.html'
+    fields = '__all__'
+
+
+class StudentDetail(DetailView):
+    model = Student
+    template_name = 'students/detail_student.html'
 
 
 class CreateStudent(View):
@@ -32,9 +51,3 @@ class CreateStudent(View):
             name=name, height=height, course=course, address=address)
 
         return redirect("/")
-
-
-class AddStudent(CreateView):
-    model = Student
-    fields = '__all__'
-    template_name = 'about.html'

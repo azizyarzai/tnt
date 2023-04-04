@@ -1,5 +1,5 @@
 from django.contrib import admin
-from students.models import Student
+from students.models import Student, Course
 
 # Register your models here.
 
@@ -12,4 +12,9 @@ class StudentModalAdmin(admin.ModelAdmin):
     list_filter = ['updated', 'course', 'name']
 
 
+class CoursreModelAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'from_date', 'to_date']
+
+
 admin.site.register(Student, StudentModalAdmin)
+admin.site.register(Course, CoursreModelAdmin)

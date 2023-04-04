@@ -16,6 +16,19 @@ COURSES = [
 ]
 
 
+class Course(models.Model):
+    title = models.CharField(max_length=120)
+    from_date = models.DateField()
+    to_date = models.DateField()
+
+    class Meta:
+        db_table = 'course'
+        ordering = ['from_date', 'title']
+
+    def __str__(self):
+        return self.title
+
+
 def min_age(val):
     if val < 18:
         raise ValidationError("Age should be greater than 18.")
@@ -36,13 +49,17 @@ class Student(models.Model):
     }, unique=True, help_text="Please be carful this field must be unique.")
     date_of_birth = models.DateField(null=True, blank=True)
     height = models.DecimalField(default=150.3, decimal_places=2, max_digits=5)
-    course = models.CharField(max_length=120, choices=COURSES, default="002")
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name='students')
     image = models.ImageField(upload_to="students", null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     objects = StudentModalManager()
+
+    class Meta:
+        db_table = "student"
 
     @property
     def age(self):
