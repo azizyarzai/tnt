@@ -1,8 +1,9 @@
 from django.views.generic.base import View
 from django.shortcuts import render, redirect
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.urls import reverse_lazy
 
 from students.models import Student
 
@@ -22,6 +23,11 @@ class StudentList(ListView):
     template_name = 'students/list_students.html'
     context_object_name = 'students'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['data'] = 34
+        return context
+
 
 class AddStudent(CreateView):
     model = Student
@@ -29,9 +35,20 @@ class AddStudent(CreateView):
     fields = '__all__'
 
 
+class UpdateStudent(UpdateView):
+    model = Student
+    fields = '__all__'
+    template_name = 'students/update_student.html'
+
+
 class StudentDetail(DetailView):
     model = Student
     template_name = 'students/detail_student.html'
+
+
+class DeleteStudent(DeleteView):
+    model = Student
+    success_url = reverse_lazy("students:list")
 
 
 class CreateStudent(View):

@@ -1,9 +1,11 @@
-from django.shortcuts import render, HttpResponse, redirect
-from students.models import Student
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from django.http import Http404
+from students.models import Student, Course
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from students.forms import TestForm, StudentModalForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -45,7 +47,7 @@ def list_students(request):
     # students = Student.objects.filter(
     #     Q(age__gte=12) | Q(course="001"), height__gt=100)
     print(students.query)
-    return render(request, 'students/list_students.html', {"students": students})
+    return render(request, 'students/list_students.html', {"students": students, 'data': 34})
     # else:
     # return redirect("/admin/login/")
 
@@ -56,19 +58,23 @@ def list_students(request):
 def add_student(request):
     print(dir(request))
     if request.method == 'GET':
-        return render(request, 'students/add_student.html')
+        courses = Course.objects.all()
+        return render(request, 'students/add_student.html', {'courses': courses})
     else:
         name = request.POST.get("name")
-        age = request.POST.get("age")
         height = request.POST.get("height")
         course = request.POST.get("course")
         address = request.POST.get("address")
 
         # image = request.FILES.get("image")
 
-        Student.objects.create(
-            name=name, age=age, height=height, course=course, address=address)
+        cours_obj = Course.objects.get(id=course)
 
+        Student.objects.create(
+            name=name,  height=float(height), course=cours_obj, address=address)
+
+        messages.error(request, "Studend was not added successfully.")
+        messages.success(request, "Studend added successfully.")
         return redirect("/")
 
 
@@ -108,7 +114,15 @@ def delete_student(request, id):
 
 
 def detail_student(request, id):
-    student = Student.objects.get(id=id)
+    # try:
+    #     student = Student.objects.get(id=id)
+    # except Student.DoesNotExist:
+    #     raise Http404()
+    # except Student.MultipleObjectsReturned:
+    #     pass
+
+    student = get_object_or_404(Student, id=id)
+
     print(student.age)
     return render(request, 'students/detail_student.html', {"student": student})
 

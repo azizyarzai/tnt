@@ -11,7 +11,9 @@ from students.views.class_based import (
     ListStudent,
     CreateStudent,
     StudentList,
-    StudentDetail
+    StudentDetail,
+    UpdateStudent,
+    DeleteStudent
 )
 
 # students
@@ -19,8 +21,8 @@ from students.views.class_based import (
 app_name = 'students'
 urlpatterns = [
     path("", StudentList.as_view(), name='list'),
-    path("add/", CreateStudent.as_view(), name='add'),
-    path("update/<int:id>/", update_student, name='update'),
-    path("delete/<int:id>/", delete_student, name='delete'),
+    path("add/", add_student, name='add'),
+    path("update/<int:pk>/", UpdateStudent.as_view(), name='update'),
+    path("delete/<int:pk>/", DeleteStudent.as_view(), name='delete'),
     path("detail/<int:pk>/", StudentDetail.as_view(), name='detail'),
 ]
