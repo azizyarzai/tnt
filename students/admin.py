@@ -8,7 +8,7 @@ class StudentModalAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'course', 'age', 'updated']
     list_display_links = ['id',     'name']
     # list_per_page = 3
-    search_fields = ['name', 'course']
+    search_fields = ['name', 'course__title']
     list_filter = ['updated', 'course', 'name']
 
 
