@@ -18,6 +18,7 @@
               <p class="card-text">Age: {{s.age}} Years Old</p>
               <p class="card-text">Heigth: {{s.height}}cm</p>
               <p class="card-text">Creaded At: {{s.created|date:"Y/m/d"}}</p>
+              <p class="card-text">Creaded By: {{s.user}}</p>
               <a href="{% url 'students:update' s.id %}" class="btn btn-primary">Update</a>
               <form action="{% url 'students:delete' s.id %}" method="post">
                 {% csrf_token %}

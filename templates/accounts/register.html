@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div style="width: 350px">
+        <h2 style="text-align: center;">Register</h2>
+        <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email</label>
+            <input type="eamil" class="form-control" id="exampleFormControlInput1" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleFormControlInput1" name="pass1" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="exampleFormControlInput1" name="pass2" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Name</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Phone</label>
+            <input type="number"  class="form-control" id="exampleFormControlInput1" name="phone" required>
+        </div>
+        <p>Already have account <a href="{% url 'accounts:login' %}">login here</a></p>
+
+        <input type="submit" value="Register" class="btn btn-info">
+    </form>
+</div>
+</div>
+{% endblock content %}

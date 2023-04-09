@@ -40,16 +40,14 @@ def welcome(request):
 # List View
 @ login_required
 def list_students(request):
-    # 'SELECT * FROM STUDENTS'
-    # if request.user.is_authenticated:
-    students = Student.objects.all()
-    # students = Student.objects.filter(name__icontains="karim")
-    # students = Student.objects.filter(
-    #     Q(age__gte=12) | Q(course="001"), height__gt=100)
+    q = request.GET.get('q')
+    if q:
+        students = Student.objects.filter(name__icontains=q, user=request.user)
+    else:
+        students = Student.objects.filter(user=request.user)
     print(students.query)
     return render(request, 'students/list_students.html', {"students": students, 'data': 34})
-    # else:
-    # return redirect("/admin/login/")
+
 
 # Create View
 

@@ -20,7 +20,7 @@ from students.views.class_based import (
 # students/add
 app_name = 'students'
 urlpatterns = [
-    path("", StudentList.as_view(), name='list'),
+    path("", list_students, name='list'),
     path("add/", add_student, name='add'),
     path("update/<int:pk>/", UpdateStudent.as_view(), name='update'),
     path("delete/<int:pk>/", DeleteStudent.as_view(), name='delete'),
