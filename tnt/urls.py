@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("welcome/", welcome),
     path("students/", include("students.urls")),
+    path("api/students/", include("students.urls_api")),
     path("accounts/", include("accounts.urls")),
     path("about/", AddStudent.as_view()),
     path("teams/", TemplateView.as_view(template_name='teams.html',
