@@ -58,6 +58,7 @@ class Student(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    is_passed = models.BooleanField(default=True)
 
     objects = StudentModalManager()
 

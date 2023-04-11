@@ -33,6 +33,7 @@ urlpatterns = [
     path("about/", AddStudent.as_view()),
     path("teams/", TemplateView.as_view(template_name='teams.html',
          extra_context={'title': 'TEAMS'})),
+    path('api-auth/', include('rest_framework.urls'))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
